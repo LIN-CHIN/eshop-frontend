@@ -1,14 +1,29 @@
 module.exports = {
   env: {
     browser: true,
-    es2023: true
+    es2023: true,
   },
-  extends: ['@nuxtjs/eslint-config-typescript'],
+  extends: [
+    'plugin:vue/essential',
+    './node_modules/eslint-config-airbnb-base/rules/best-practices.js',
+    './node_modules/eslint-config-airbnb-base/rules/errors.js',
+    './node_modules/eslint-config-airbnb-base/rules/es6.js',
+    './node_modules/eslint-config-airbnb-base/rules/imports.js',
+    './node_modules/eslint-config-airbnb-base/rules/node.js',
+    // './node_modules/eslint-config-airbnb-base/rules/strict.js',
+    './node_modules/eslint-config-airbnb-base/rules/style.js',
+    './node_modules/eslint-config-airbnb-base/rules/variables.js',
+  ],
+  plugins: [
+    'vue',
+  ],
   parserOptions: {
     ecmaVersion: 2023,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   rules: {
-    'no-undef': 'off'
-  }
-}
+    'no-undef': 'off',
+    'vue/multi-word-component-names': 'off',
+    'no-unused-vars': 'warn',
+  },
+};
