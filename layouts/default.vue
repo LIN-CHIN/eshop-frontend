@@ -1,8 +1,8 @@
 <template>
   <div>
     <AppHeader />
-    <slot />
-    <slot name="s-footer" />
+    <slot></slot>
+    <AppFooter/>
   </div>
 </template>
 
