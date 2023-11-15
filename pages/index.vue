@@ -1,13 +1,10 @@
 <template>
-  <div>
+  <div style="height: 2400px;">
     首頁
   </div>
 </template>
 
 <script lang="ts">
-export default {
-
-}
 </script>
 
 <style>
