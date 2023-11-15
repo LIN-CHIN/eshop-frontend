@@ -2,12 +2,19 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
-    typeCheck: true
+    typeCheck: true,
   },
-  css: [
-    'bootstrap/dist/css/bootstrap.css'
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
   ],
-  plugins: [
-    { src: '~/plugins/bootstrap.js', mode: 'client' }
-  ]
-})
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+  css: ['~/assets/css/main.css'],
+});
