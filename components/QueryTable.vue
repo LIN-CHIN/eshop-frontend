@@ -1,6 +1,17 @@
 <template>
-  <div class="overflow-x-auto border-gray-500">
-    <table class="table table-sm table-zebra border-t-1 border-b-1">
+  <div class="overflow-x-auto border-gray-500 lg:container lg:mx-auto">
+    <!-- btn insert start -->
+    <div class="ml-5 mb-5
+                  lg:flex lg:flex-row lg:justify-end">
+      <button class="btn btn-outline" onclick="my_modal_1.showModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+          <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+        </svg>
+      </button>
+    </div>
+    <!-- btn insert end -->
+    <!-- table start -->
+    <table class="table table-sm table-zebra border-t-2 border-b-2 border-gray-300">
       <thead>
         <tr>
           <th></th>
@@ -255,5 +266,6 @@
         </tr>
       </tbody>
     </table>
+    <!-- table end -->
   </div>
 </template>

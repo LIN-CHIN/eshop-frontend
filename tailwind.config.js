@@ -15,4 +15,14 @@ module.exports = {
     // eslint-disable-next-line global-require, import/no-extraneous-dependencies
     require('daisyui'),
   ],
+  daisyui: {
+    themes: false,
+    darkTheme: 'dark',
+    base: true,
+    styled: true,
+    utils: true,
+    prefix: '',
+    logs: true,
+    themeRoot: ':root',
+  },
 };
