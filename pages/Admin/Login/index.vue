@@ -1,63 +1,51 @@
 <template>
-  <div class="full-container d-flex flex-column justify-content-center ">
-    <div class="container login-container">
-      <div class="row login-header">
-        <h3 class="col">
-          後台登入
-        </h3>
-      </div>
-      <div class="row">
-        <label for="userNumber" class="col-sm col-form-label">帳號</label>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          <input id="userNumber" type="text" class="form-control">
+  <div class="w-full h-screen bg-gray-200 flex justify-center items-center">
+    <div class="w-full max-w-xs">
+      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+            Username
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3
+                      text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline"
+                 id="username"
+                 type="text"
+            placeholder="Username">
         </div>
-      </div>
-      <div class="row">
-        <label for="userPassword" class="col-sm col-form-label">密碼</label>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          <input id="userPassword" type="password" class="form-control">
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Password
+          </label>
+          <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3
+                      text-gray-700 mb-3 leading-tight
+                        focus:outline-none focus:shadow-outline"
+                 id="password"
+                 type="password"
+            placeholder="******************">
+          <p class="text-red-500 text-xs italic">Please choose a password.</p>
         </div>
-      </div>
-      <div class="row login-btn-block">
-        <div class="col-6" />
-        <button class="btn btn-primary col-6">
-          登入
-        </button>
-      </div>
+        <div class="flex items-center justify-between">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white
+                        font-bold py-2 px-4 rounded
+                        focus:outline-none focus:shadow-outline" type="button">
+            Sign In
+          </button>
+          <a class="inline-block align-baseline font-bold text-sm text-blue-500
+                  hover:text-blue-800" href="#">
+            Forgot Password?
+          </a>
+        </div>
+      </form>
+      <p class="text-center text-gray-500 text-xs">
+        &copy;2020 Acme Corp. All rights reserved.
+      </p>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-
-};
+<script setup lang="ts">
+definePageMeta({
+  layout: false,
+});
 </script>
-
-<style>
-.login-container{
-    border-radius: 3%;
-    background-color: #eeeeee;
-    width: auto;
-    padding: 15px 25px 5px 25px;
-}
-
-.login-header{
-    text-align: center;
-}
-
-.login-btn-block{
-    margin: 5px 0 0 0;
-}
-
-.full-container
-{
-    height: 100vh;
-    width: 100%;
-    background-color: #8f8c8c;
-}
-</style>
