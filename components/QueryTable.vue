@@ -11,15 +11,11 @@
     </div>
     <!-- insert dialog start-->
     <dialog id="insert_modal" class="modal">
-      <div class="modal-box">
-        <slot name="insertModalContent"></slot>
-      </div>
+      <slot name="insertModalContent"></slot>
     </dialog>
     <!-- edit dialog start -->
     <dialog id="dialog_edit" class="modal">
-      <div class="modal-box">
-        <slot name="editModalContent"></slot>
-      </div>
+      <slot name="editModalContent"></slot>
     </dialog>
     <!-- delete dialog start -->
     <dialog id="dialog_delete" class="modal">
@@ -30,7 +26,7 @@
         <h3 class="font-bold text-lg">刪除xxx</h3>
         <p class="py-4">確定要刪除xxx嗎</p>
         <div class="modal-action">
-          <button class="btn">刪除</button>
+          <button class="btn btn-primary">確定</button>
         </div>
       </div>
     </dialog>
