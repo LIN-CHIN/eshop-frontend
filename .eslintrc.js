@@ -20,10 +20,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2023,
     sourceType: 'module',
+    parser: require.resolve('@typescript-eslint/parser'),
+    extraFileExtensions: ['.vue'],
   },
   rules: {
     'no-undef': 'off',
     'vue/multi-word-component-names': 'off',
     'no-unused-vars': 'warn',
+    'space-infix-ops': 'off',
   },
 };
