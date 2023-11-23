@@ -23,7 +23,7 @@
             商品名稱
           </label>
           <input type="text"
-                 id="inproductName"
+                 id="productName"
                  placeholder="商品名稱"
                  class="input input-bordered max-w-xs
                       focus:outline-none focus:border-gray-300 focus:shadow-md" />
