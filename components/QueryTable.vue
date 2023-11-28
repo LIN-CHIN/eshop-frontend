@@ -3,28 +3,28 @@
     <!-- btn insert start -->
     <div class="ml-5 mb-5
                   lg:flex lg:flex-row lg:justify-end">
-      <button class="btn btn-outline" onclick="insert_modal.showModal()">
+      <button class="btn btn-outline" @click="insertClick">
         <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 -960 960 960" width="24">
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
         </svg>
       </button>
     </div>
     <!-- insert dialog start-->
-    <dialog id="insert_modal" class="modal">
+    <dialog id="insert_modal" ref="insertModal" class="modal">
       <slot name="insertModalContent"></slot>
     </dialog>
     <!-- edit dialog start -->
-    <dialog id="dialog_edit" class="modal">
+    <dialog id="dialog_edit" ref="editModal" class="modal">
       <slot name="editModalContent"></slot>
     </dialog>
     <!-- delete dialog start -->
-    <dialog id="dialog_delete" class="modal">
+    <dialog id="dialog_delete" ref="deleteModal" class="modal">
       <div class="modal-box">
         <form method="dialog">
           <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <h3 class="font-bold text-lg">刪除xxx</h3>
-        <p class="py-4">確定要刪除xxx嗎</p>
+        <h3 class="font-bold text-lg">刪除{{props.deleteTitle}}</h3>
+        <p class="py-4">確定要刪除嗎</p>
         <div class="modal-action">
           <button class="btn btn-primary">確定</button>
         </div>
@@ -36,33 +36,28 @@
       <thead>
         <tr>
           <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>company</th>
-          <th>location</th>
-          <th>Last Login</th>
-          <th>Favorite Color</th>
+          <th v-for="(headContent, index) in tableContent?.head" :key="index">
+            {{ headContent }}
+          </th>
           <th>啟用/停用</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="hover">
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Littel, Schaden and Vandervort</td>
-          <td>Canada</td>
-          <td>12/16/2020</td>
-          <td>Blue</td>
+        <tr class="hover" v-for="(item, index) in tableContent?.body.length" :key="index">
+          <th>{{ startFromOne ? index + 1 : index }}</th>
+          <td v-for="(bodyContent, i) in tableContent?.body[index].content" :key="i">
+            {{ bodyContent }}
+          </td>
           <td>
             <input type="checkbox" class="toggle toggle-success" checked />
           </td>
           <td class="flex">
+            <!-- edit button -->
             <button class="btn btn-xs pl-0 pr-0 mr-1
                     bg-transparent border-0 shadow-transparent
                     outline-none hover:bg-transparent hover:outline-2 hover:outline-gray-300"
-              onclick="dialog_edit.showModal()">
+              @click="editClick">
               <svg class="cursor-pointer " xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                 width="24">
                 <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11
@@ -71,10 +66,12 @@
                           57-29-28Z" />
               </svg>
             </button>
+            <!-- delete button -->
             <button class="btn btn-xs pl-0 pr-0 mr-1
                     bg-transparent border-0 shadow-transparent
                     outline-none hover:bg-transparent hover:outline-2 hover:outline-gray-300"
-              onclick="dialog_delete.showModal()">
+
+                    @click="deleteClick(1)">
               <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                 width="24">
                 <path d="M280-120q-33
@@ -86,84 +83,81 @@
             </button>
           </td>
         </tr>
-        <tr class="hover">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Zemlak, Daniel and Leannon</td>
-          <td>United States</td>
-          <td>12/5/2020</td>
-          <td>Purple</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Carroll Group</td>
-          <td>China</td>
-          <td>8/15/2020</td>
-          <td>Red</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>4</th>
-          <td>Marjy Ferencz</td>
-          <td>Office Assistant I</td>
-          <td>Rowe-Schoen</td>
-          <td>Russia</td>
-          <td>3/25/2021</td>
-          <td>Crimson</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>5</th>
-          <td>Yancy Tear</td>
-          <td>Community Outreach Specialist</td>
-          <td>Wyman-Ledner</td>
-          <td>Brazil</td>
-          <td>5/22/2020</td>
-          <td>Indigo</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>6</th>
-          <td>Irma Vasilik</td>
-          <td>Editor</td>
-          <td>Wiza, Bins and Emard</td>
-          <td>Venezuela</td>
-          <td>12/8/2020</td>
-          <td>Purple</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>7</th>
-          <td>Meghann Durtnal</td>
-          <td>Staff Accountant IV</td>
-          <td>Schuster-Schimmel</td>
-          <td>Philippines</td>
-          <td>2/17/2021</td>
-          <td>Yellow</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="hover">
-          <th>8</th>
-          <td>Sammy Seston</td>
-          <td>Accountant I</td>
-          <td>O'Hara, Welch and Keebler</td>
-          <td>Indonesia</td>
-          <td>5/23/2020</td>
-          <td>Crimson</td>
-          <td></td>
-          <td></td>
-        </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<script setup lang="ts">
+/**
+ * 表格Tbody的interface
+ */
+interface TableBody
+{
+  content: string[]
+}
+
+/**
+ * 所有表格的內容Interface
+ */
+export interface TableContent
+{
+  head: string[]
+  body: TableBody[]
+}
+
+const insertModal = ref<HTMLDialogElement>();
+const editModal = ref<HTMLDialogElement>();
+const deleteModal = ref<HTMLDialogElement>();
+let deleteId : number | null;
+
+const props = withDefaults(defineProps<{
+  deleteTitle: string,
+  tableContent: TableContent,
+  startFromOne?:boolean,
+}>(), {
+  startFromOne: true,
+});
+
+type Emit = {
+  /**
+   * 新增按鈕的點擊事件:
+   * 開啟dialog之前要做的某件事情
+   */
+  (e: 'insertClickEvent'): void,
+
+  /**
+   * 編輯按鈕的點擊事件:
+   * 開啟dialog之前要做的某件事情
+   */
+  (e: 'editClickEvent'): void
+}
+const emit = defineEmits<Emit>();
+
+/**
+ * 新增按鈕的點擊事件
+ * 開啟dialog之前，呼叫父元件提供的function
+ */
+const insertClick = () => {
+  emit('insertClickEvent');
+  insertModal.value?.showModal();
+};
+
+/**
+ * 編輯按鈕的點擊事件
+ * 開啟dialog之前，呼叫父元件提供的function
+ */
+const editClick = () => {
+  emit('editClickEvent');
+  editModal.value?.showModal();
+};
+
+/**
+ * 刪除按鈕(垃圾桶icon)的點擊事件
+ */
+const deleteClick = (id: number) => {
+  deleteId = id;
+  deleteModal.value?.showModal();
+};
+
+</script>

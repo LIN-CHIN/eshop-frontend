@@ -71,7 +71,11 @@
         </div>
       </template>
     </QueryBar>
-    <QueryTable>
+    <QueryTable
+      @insert-click-event="resetInsertDailog"
+      @edit-click-event="resetEditDailog"
+      :delete-title=deleteTitle
+      :table-content="tableContent">
       <!-- insert modal content -->
       <template #insertModalContent>
         <div class="modal-box max-w-5xl">
@@ -429,11 +433,38 @@
 
 <script setup lang="ts">
 import SingleSelectModal from '../../../components/SingleSelectModal.vue';
+import { type TableContent } from '../../../components/QueryTable.vue';
 
+const tableContent: TableContent = {
+  head: ['商品代碼', '商品名稱', '商品庫存數量'],
+  body: [
+    {
+      content: ['A001', '商品1', '1'],
+    },
+    {
+      content: ['A002', '商品2', '2'],
+    },
+  ],
+};
+
+const deleteTitle : string = '庫存';
 const sigle = ref<InstanceType<typeof SingleSelectModal> | null>(null);
 
 function OpenSingleSelectModal() {
   sigle.value?.OpenSingleSelectModal();
 }
+
+/**
+ * 重製新增dailog的元件
+ */
+// TODO: 要實作function
+const resetInsertDailog = () => {
+  console.log(123);
+};
+
+// TODO: 要實作function
+const resetEditDailog = () => {
+
+};
 
 </script>

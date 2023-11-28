@@ -82,7 +82,11 @@
         </div>
       </template>
     </QueryBar>
-    <QueryTable>
+    <QueryTable
+      @insert-click-event="resetInsertDailog"
+      @edit-click-event="resetEditDailog"
+      :delete-title=deleteTitle
+      :table-content="tableContent">
       <template #insertModalContent>
         <h3 class="font-bold text-lg">新增使用者</h3>
         <form class="w-full max-w-lg py-4">
@@ -268,5 +272,32 @@
 </template>
 
 <script setup lang="ts">
+import { type TableContent } from '../../../components/QueryTable.vue';
 
+const tableContent: TableContent = {
+  head: ['商品代碼', '商品名稱', '商品庫存數量'],
+  body: [
+    {
+      content: ['A001', '商品1', '1'],
+    },
+    {
+      content: ['A002', '商品2', '2'],
+    },
+  ],
+};
+
+const deleteTitle : string = '庫存';
+
+/**
+ * 重製新增dailog的元件
+ */
+// TODO: 要實作function
+const resetInsertDailog = () => {
+  console.log(123);
+};
+
+// TODO: 要實作function
+const resetEditDailog = () => {
+
+};
 </script>
