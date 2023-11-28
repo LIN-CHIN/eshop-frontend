@@ -605,20 +605,14 @@
 
 <script setup lang="ts">
 import { type TableContent } from '../../../components/QueryTable.vue';
-
-interface stepObject
-{
-  id: number,
-  name: string,
-  isActive: boolean
-}
+import { type StepObject } from '../../../components/Step.vue';
 
 const deleteTitle : string = '庫存商品';
 /**
  * 所有Step資料的集合
  * 也是要傳給<Step>的資料
  */
-const stepDatas = ref<stepObject[]>(
+const stepDatas = ref<StepObject[]>(
   [
     {
       id: 1,

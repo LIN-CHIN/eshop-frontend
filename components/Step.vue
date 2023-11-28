@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-interface stepObject
+export interface StepObject
 {
   id: number,
   name: string,
@@ -18,7 +18,7 @@ interface stepObject
 
 const props = defineProps({
   stepDatas: {
-    type: Array as () => stepObject[],
+    type: Array as () => StepObject[],
     default: () => [],
   },
 });
