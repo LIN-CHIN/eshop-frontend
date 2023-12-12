@@ -1,7 +1,7 @@
 <template>
   <ul class="steps steps-vertical lg:steps-horizontal w-full">
     <li class="step w-auto"
-        v-for="stepData in props.stepDatas" :key="stepData.id"
+        v-for="(stepData, index) in props.stepDatas" :key="index"
         :class="{'step-primary': stepData.isActive }">
         {{ stepData.name }}
     </li>
@@ -9,18 +9,15 @@
 </template>
 
 <script setup lang="ts">
-export interface StepObject
+export interface StepDatas
 {
-  id: number,
+  order: number,
   name: string,
-  isActive: boolean
+  isActive: boolean,
 }
 
-const props = defineProps({
-  stepDatas: {
-    type: Array as () => StepObject[],
-    default: () => [],
-  },
-});
+const props = defineProps<{
+  stepDatas: StepDatas[]
+}>();
 
 </script>

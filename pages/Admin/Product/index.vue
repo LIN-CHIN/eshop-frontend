@@ -81,169 +81,190 @@
         <div class="modal-box max-w-5xl">
           <h2 class="font-bold text-lg">新增商品</h2>
           <br>
-          <Step>
-            <template #frmStep>
-              <!-- step 1  -->
-              <div id="step1" class="w-full py-4">
-                <div class="flex flex-wrap -mx-3 mb-6 p-5
-                          border border-gray-200 rounded-lg shadow-md">
-                  <h3 class="w-full mb-6">選擇商品</h3>
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide text-gray-700
-                                  text-xs font-bold mb-2"
-                          for="number">
-                      商品代碼
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200
-                              text-gray-700 border border-red-500 rounded
-                              py-3 px-4 mb-3 leading-tight
-                              focus:outline-none "
-                            id="number"
-                            type="text"
-                            readonly>
-                    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-                  </div>
-                  <div class="w-full lg:w-auto px-3 mb-5 flex flex-col justify-center">
-                    <button class="btn" @click="OpenSingleSelectModal">選擇</button>
+          <!-- select block -->
+          <form ref="frmSelect" class="w-full py-4">
+            <div class="flex flex-wrap -mx-3 mb-6 p-5
+                      border border-gray-200 rounded-lg shadow-md">
+              <h3 class="w-full mb-6">選擇商品</h3>
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide text-gray-700
+                              text-xs font-bold mb-2"
+                      for="number">
+                  商品代碼
+                </label>
+                <input class="appearance-none block w-full bg-gray-200
+                          text-gray-700 border border-red-500 rounded
+                          py-3 px-4 mb-3 leading-tight
+                          focus:outline-none "
+                        id="number"
+                        type="text"
+                        readonly>
+                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+              </div>
+              <div class="w-full lg:w-auto px-3 mb-5 flex flex-col justify-center">
+                <button class="btn" @click.stop.prevent="OpenSingleSelectModal">選擇</button>
+              </div>
+            </div>
+          </form>
+          <SingleSelectModal ref="sigle"></SingleSelectModal>
+
+          <!-- base info -->
+          <form ref="baseInfo" class="w-full py-4">
+            <div class="flex flex-wrap -mx-3 mb-6 p-5
+                      border border-gray-200 rounded-lg shadow-md">
+              <h3 class="w-full mb-6">基本資訊</h3>
+              <!-- price -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide text-gray-700
+                              text-xs font-bold mb-2"
+                      for="price">
+                  價格
+                </label>
+                <input class="appearance-none block w-full bg-gray-200
+                          text-gray-700 border border-red-500 rounded
+                          py-3 px-4 mb-3 leading-tight
+                          focus:outline-none "
+                        id="price"
+                        type="number">
+                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+              </div>
+              <!-- discount -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide text-gray-700
+                              text-xs font-bold mb-2"
+                      for="discount">
+                  折扣數
+                </label>
+                <input class="appearance-none block w-full bg-gray-200
+                      text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="discount"
+                        type="number"
+                        tep="0.01">
+              </div>
+              <!-- eShopUnitId -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide
+                              text-gray-700 text-xs font-bold mb-2"
+                      for="eShopUnitId">
+                  單位
+                </label>
+                <div class="relative">
+                  <select class="block appearance-none w-full bg-gray-200 border border-gray-200
+                            text-gray-700 py-3 px-4 pr-8 rounded leading-tight
+                            focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="eShopUnitId">
+                    <option selected>請選擇</option>
+                    <option>個</option>
+                    <option>顆</option>
+                    <option>件</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0
+                            flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657
+                            8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
                   </div>
                 </div>
               </div>
-              <SingleSelectModal ref="sigle"></SingleSelectModal>
-
-              <!-- step 2 -->
-              <div id="step2" class="w-full py-4">
-                <div class="flex flex-wrap -mx-3 mb-6 p-5
-                          border border-gray-200 rounded-lg shadow-md">
-                  <h3 class="w-full mb-6">選擇商品</h3>
-                  <!-- price -->
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide text-gray-700
-                                  text-xs font-bold mb-2"
-                          for="price">
-                      價格
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200
-                              text-gray-700 border border-red-500 rounded
-                              py-3 px-4 mb-3 leading-tight
-                              focus:outline-none "
-                            id="price"
-                            type="number">
-                    <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-                  </div>
-                  <!-- discount -->
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide text-gray-700
-                                  text-xs font-bold mb-2"
-                          for="discount">
-                      折扣數
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200
-                          text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
+              <!-- saleStartDate -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide text-gray-700
+                              text-xs font-bold mb-2"
+                      for="saleStartDate">
+                  特價起始日期
+                </label>
+                <input class="appearance-none block w-full bg-gray-200
+                      text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="saleStartDate"
+                        type="datetime-local">
+              </div>
+              <!-- saleEndDate -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide text-gray-700
+                              text-xs font-bold mb-2"
+                      for="saleEndDate">
+                  特價結束日期
+                </label>
+                <input class="appearance-none block w-full bg-gray-200
+                      text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="saleEndDate"
+                        type="datetime-local">
+              </div>
+              <!-- language -->
+              <div class="w-full lg:w-auto px-3 mb-5">
+                <label class="block uppercase tracking-wide
+                              text-gray-700 text-xs font-bold mb-2"
+                      for="eShopUnitId">
+                  顯示語言
+                </label>
+                <div class="relative">
+                  <select class="block appearance-none w-full bg-gray-200 border border-gray-200
+                            text-gray-700 py-3 px-4 pr-8 rounded leading-tight
                             focus:outline-none focus:bg-white focus:border-gray-500"
-                           id="discount"
-                           type="number"
-                           tep="0.01">
-                  </div>
-                  <!-- eShopUnitId -->
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide
-                                  text-gray-700 text-xs font-bold mb-2"
-                          for="eShopUnitId">
-                      單位
-                    </label>
-                    <div class="relative">
-                      <select class="block appearance-none w-full bg-gray-200 border border-gray-200
-                                text-gray-700 py-3 px-4 pr-8 rounded leading-tight
-                                focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="eShopUnitId">
-                        <option selected>請選擇</option>
-                        <option>個</option>
-                        <option>顆</option>
-                        <option>件</option>
-                      </select>
-                      <div class="pointer-events-none absolute inset-y-0 right-0
-                                flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                          <path d="M9.293 12.95l.707.707L15.657
-                                8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- saleStartDate -->
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide text-gray-700
-                                  text-xs font-bold mb-2"
-                          for="saleStartDate">
-                      特價起始日期
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200
-                          text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
-                            focus:outline-none focus:bg-white focus:border-gray-500"
-                           id="saleStartDate"
-                           type="datetime-local">
-                  </div>
-                  <!-- saleEndDate -->
-                  <div class="w-full lg:w-auto px-3 mb-5">
-                    <label class="block uppercase tracking-wide text-gray-700
-                                  text-xs font-bold mb-2"
-                          for="saleEndDate">
-                      特價結束日期
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200
-                          text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
-                            focus:outline-none focus:bg-white focus:border-gray-500"
-                           id="saleEndDate"
-                           type="datetime-local">
-                  </div>
-                  <!-- checkbox group start-->
-                  <div class="form-control w-full px-3 mb-5
-                              flex flex-col items-start flex-wrap
-                              lg:flex-row lg:justify-start">
-                    <label class="label cursor-pointer">
-                      <input type="checkbox"
-                            checked
-                            name="isAlwaysSale"
-                            class="checkbox checkbox-sm mr-2
-                                    lg:ml-3" />
-                      <span class="label-text">是否總是特價</span>
-                    </label>
-                    <label class="label cursor-pointer">
-                      <input type="checkbox"
-                            checked
-                            name="isUseCoupon"
-                            class="checkbox checkbox-sm mr-2
-                                    lg:ml-3" />
-                      <span class="label-text">是否可以使用優惠券</span>
-                    </label>
-                    <label class="label cursor-pointer">
-                      <input type="checkbox"
-                            checked
-                            name="isEnable"
-                            class="checkbox checkbox-sm mr-2
-                                    lg:ml-3" />
-                      <span class="label-text">是否啟用</span>
-                    </label>
-                  </div>
-                  <!-- checkbox group end-->
-                  <div class="w-full px-3 mb-5">
-                    <label class="block uppercase tracking-wide
-                                text-gray-700 text-xs font-bold mb-2"
-                          for="brand">
-                      備註
-                    </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
-                              border-gray-200 rounded py-3 px-4 leading-tight
-                                focus:outline-none focus:bg-white focus:border-gray-500"
-                          id="brand"
-                          type="text"
-                          placeholder="備註">
+                          id="eShopUnitId">
+                    <option selected>請選擇</option>
+                    <option>個</option>
+                    <option>顆</option>
+                    <option>件</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0
+                            flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657
+                            8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
                   </div>
                 </div>
               </div>
-            </template>
-          </Step>
-
+              <!-- checkbox group start-->
+              <div class="form-control w-full px-3 mb-5
+                          flex flex-col items-start flex-wrap
+                          lg:flex-row lg:justify-start">
+                <label class="label cursor-pointer">
+                  <input type="checkbox"
+                        checked
+                        name="isAlwaysSale"
+                        class="checkbox checkbox-sm mr-2
+                                lg:ml-3" />
+                  <span class="label-text">是否總是特價</span>
+                </label>
+                <label class="label cursor-pointer">
+                  <input type="checkbox"
+                        checked
+                        name="isUseCoupon"
+                        class="checkbox checkbox-sm mr-2
+                                lg:ml-3" />
+                  <span class="label-text">是否可以使用優惠券</span>
+                </label>
+                <label class="label cursor-pointer">
+                  <input type="checkbox"
+                        checked
+                        name="isEnable"
+                        class="checkbox checkbox-sm mr-2
+                                lg:ml-3" />
+                  <span class="label-text">是否啟用</span>
+                </label>
+              </div>
+              <!-- checkbox group end-->
+              <div class="w-full px-3 mb-5">
+                <label class="block uppercase tracking-wide
+                            text-gray-700 text-xs font-bold mb-2"
+                      for="brand">
+                  備註
+                </label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                          border-gray-200 rounded py-3 px-4 leading-tight
+                            focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="brand"
+                      type="text"
+                      placeholder="備註">
+              </div>
+            </div>
+          </form>
           <!-- button group -->
           <div class="modal-action mt-0">
             <button class="btn btn-primary">新增</button>
@@ -448,16 +469,18 @@ const tableContent: TableContent = {
 };
 
 const deleteTitle : string = '庫存';
-const sigle = ref<InstanceType<typeof SingleSelectModal> | null>(null);
-
-function OpenSingleSelectModal() {
-  sigle.value?.OpenSingleSelectModal();
-}
+const singleSelectModal = ref<InstanceType<typeof SingleSelectModal> | null>(null);
 
 /**
- * 重製新增dailog的元件
+ * 開啟單選modal dialog
  */
-// TODO: 要實作function
+const OpenSingleSelectModal = () => {
+  singleSelectModal.value?.OpenSingleSelectModal();
+};
+
+/**
+ * 重置新增dailog的元件
+ */
 const resetInsertDailog = () => {
   console.log(123);
 };

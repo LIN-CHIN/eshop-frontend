@@ -15,15 +15,11 @@
 <script setup lang="ts">
 const singleSelectModal = ref<HTMLDialogElement>();
 
-function OpenSingleSelectModal() {
-  if (!singleSelectModal.value) {
-    return;
-  }
-  singleSelectModal.value.showModal();
-}
+const OpenSingleSelectModal = () => {
+  singleSelectModal.value?.showModal();
+};
 
 defineExpose({
-
   OpenSingleSelectModal,
 });
 </script>
