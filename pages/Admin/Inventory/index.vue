@@ -310,7 +310,7 @@
           <!-- step3 check customAttributes -->
           <div v-show="stepDatas.find(f => f.order === 3)?.isActive">
             <form class="w-full py-4" ref="frmInsertStep2">
-              <div v-for="(attribute, index) in confirmedAttrs" :key="index">
+              <div v-for="(attribute, index) in combinedResults" :key="index">
                 <div class="flex flex-wrap -mx-3 mb-2 p-5 relative
                           border border-gray-200 rounded-lg shadow-md">
                 <h3 class="w-full mb-6">組合{{ index + 1 }}</h3>
@@ -326,8 +326,8 @@
                       </thead>
                       <tbody>
                         <tr class="hover" v-for="(data, index) in attribute" :key="index">
-                          <th hidden>{{ data.value.index }}</th>
-                          <td hidden>{{ data.value.key }}</td>
+                          <th >{{ data.value.index }}</th>
+                          <td >{{ data.value.key }}</td>
                           <td>{{ data.value.keyName }}</td>
                           <td hidden>{{ data.value.value }}</td>
                           <td>{{ data.value.valueName }}</td>
@@ -337,9 +337,9 @@
                     <button class="btn btn-xs absolute top-[-5px] right-[-10px] h-auto
                                     bg-white border-0 shadow-transparent outline-none
                                     hover:bg-white hover:outline-1 hover:outline-gray-300"
-                                    @click.stop.prevent="">
+                                  @click.stop.prevent="DeleteCompositeAttributes(index)">
                       <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
-                        width="">
+                        width="24">
                         <path d="M280-120q-33
                           0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0
                           33-23.5
@@ -367,7 +367,147 @@
           <!-- step4 start -->
           <div v-show="stepDatas.find(f => f.order === 4)?.isActive">
             <form class="w-full py-4" ref="frmInsertStep3">
-              <div class="flex flex-wrap -mx-3 mb-6 p-5
+              <div v-if="combinedResults.length > 0 ">
+                <div class="flex flex-wrap -mx-3 mb-6 p-5
+                        border border-gray-200 rounded-lg shadow-md"
+                   v-for="(result, index) in combinedResults" :key="index">
+                <h3 class="w-full mb-6">
+                  基本資訊 ( {{ result.map(attr => attr.value.valueName).join("、") }} )
+                </h3>
+                <!-- productNumber -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="productNumber">
+                    商品代碼
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200
+                            text-gray-700 border border-red-500
+                            rounded py-3 px-4 mb-3 leading-tight
+                            focus:outline-none focus:bg-white"
+                          id="productNumber"
+                          type="text"
+                          placeholder="A0001">
+                  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                </div>
+                <!-- productName -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="productName">
+                    商品名稱
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200
+                            text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="productName"
+                        type="text"
+                    placeholder="商品名稱">
+                </div>
+                <!-- inventoryQuantity -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                              text-gray-700 text-xs font-bold mb-2"
+                        for="inventoryQuantity">
+                    庫存數量
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                            border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="inventoryQuantity"
+                        type="number"
+                        placeholder="1">
+                </div>
+                <!-- inventoryAlert -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="inventoryAlert">
+                    庫存警告數
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                            border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="inventoryAlert"
+                        type="number"
+                        placeholder="10">
+                </div>
+                <!-- supplier -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="supplier">
+                    供應商
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                            border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="supplier"
+                        type="text"
+                        placeholder="供應商">
+                </div>
+                <!-- brand -->
+                <div class="w-full lg:w-auto px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="brand">
+                    品牌
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                            border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="brand"
+                        type="text"
+                        placeholder="品牌">
+                  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                </div>
+                <!-- remarks -->
+                <div class="w-full px-3 mb-5">
+                  <label class="block uppercase tracking-wide
+                                text-gray-700 text-xs font-bold mb-2"
+                        for="remarks">
+                    備註
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border
+                            border-gray-200 rounded py-3 px-4 leading-tight
+                              focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="remarks"
+                        type="text"
+                        placeholder="備註">
+                </div>
+                <!-- checkbox group start-->
+                <div class="form-control w-full px-3 mb-5
+                            flex flex-col items-start flex-wrap
+                            lg:flex-row lg:justify-start">
+                  <label class="label cursor-pointer">
+                    <input type="checkbox"
+                          checked
+                          name="isComposite"
+                          class="checkbox checkbox-sm mr-2" />
+                    <span class="label-text">是否為組合產品</span>
+                  </label>
+                  <label class="label cursor-pointer">
+                    <input type="checkbox"
+                          checked
+                          name="isCompositeOnly"
+                          class="checkbox checkbox-sm mr-2
+                                  lg:ml-3" />
+                    <span class="label-text">是否只能讓組合產品使用</span>
+                  </label>
+                  <label class="label cursor-pointer">
+                    <input type="checkbox"
+                          checked
+                          name="isEnable"
+                          class="checkbox checkbox-sm mr-2
+                                  lg:ml-3" />
+                    <span class="label-text">是否啟用</span>
+                  </label>
+                </div>
+                <!-- checkbox group end-->
+                </div>
+              </div>
+              <div v-else>
+                <div class="flex flex-wrap -mx-3 mb-6 p-5
                         border border-gray-200 rounded-lg shadow-md">
                 <h3 class="w-full mb-6">基本資訊</h3>
                 <!-- productNumber -->
@@ -500,6 +640,7 @@
                   </label>
                 </div>
                 <!-- checkbox group end-->
+                </div>
               </div>
             </form>
             <!-- insert button group -->
@@ -668,7 +809,7 @@
 <script setup lang="ts">
 import { type TableContent } from '../../../components/QueryTable.vue';
 import { type StepDatas } from '../../../components/Step.vue';
-import { type DropDownList } from '../../../ts/Interfaces/ddr'
+import { type DropDownList } from '../../../ts/Interfaces/ddr';
 
 /** 變種屬性的json */
 interface VariantAttributeJson {
@@ -762,7 +903,6 @@ const attributeValueOptions: DropDownList[] = [
     selected: false,
   },
 ];
-
 /** 所有Step資料的集合，也是要傳給<Step>的資料 */
 const stepDatas = ref<StepDatas[]>(
   [
@@ -792,8 +932,11 @@ const stepDatas = ref<StepDatas[]>(
 /** 屬性清單 */
 const attributes = ref<VariantAttributeJson[]>([]);
 
+/** 排列組合後的結果 */
+const combinedResults = ref<CombineResult[][]>([]);
+
 /**
- *
+ * 將屬性做排列組合
  * @param groupAttribtes
  *  將屬性按照key分類好的屬性清單 ex:
  * [
@@ -812,7 +955,9 @@ const attributes = ref<VariantAttributeJson[]>([]);
  *  },
  *  {
  *    "key": "size",
- *    "size":  ....類推
+ *    "size":  [
+ *      ....類推
+ *    ]
  *  }
  * ]
  * @param current 目前已排好的組合，將每一次組合好的內容推進結果
@@ -848,8 +993,8 @@ function CombineAttribute(
   return result;
 }
 
-/** 確認後的屬性清單 */
-const confirmedAttrs = computed<CombineResult[][]>(() => {
+/** 設定屬性的排列組合 */
+const SetCombinations = () => {
   const keys: string[] = [];
   const groupAttributes: GroupAttributes[] = [];
 
@@ -868,9 +1013,8 @@ const confirmedAttrs = computed<CombineResult[][]>(() => {
     groupAttributes.push({ key: element, value: filter });
   });
 
-  const result : CombineResult[][] = CombineAttribute(groupAttributes);
-  return result;
-});
+  combinedResults.value = CombineAttribute(groupAttributes);
+};
 
 /**
  * 切換到上一步
@@ -887,7 +1031,7 @@ const ToUpStep = (order: number) => {
   // 如果是最後一步 && 類型不等於可變商品
   if (order === 4 && selectProductType.value?.value !== 'variant') {
     stepDatas.value[currentIndex].isActive = false;
-    stepDatas.value[currentIndex - 2].isActive = true;
+    stepDatas.value[currentIndex - 3].isActive = true;
   } else {
     stepDatas.value[currentIndex].isActive = false;
     stepDatas.value[currentIndex - 1].isActive = true;
@@ -907,12 +1051,17 @@ const ToNextStep = (order: number) => {
   }
 
   // 如果是第一頁，且商品類型不等於可變商品，就直接跳過自訂屬性頁籤
-  if (order === 0 && selectProductType.value?.value !== 'variant') {
+  if (order === 1 && selectProductType.value?.value !== 'variant') {
     stepDatas.value[currentIndex].isActive = false;
-    stepDatas.value[currentIndex + 2].isActive = true;
+    stepDatas.value[currentIndex + 3].isActive = true;
   } else {
     stepDatas.value[currentIndex].isActive = false;
     stepDatas.value[currentIndex + 1].isActive = true;
+  }
+
+  if (order === 2) {
+    // 執行排列組合的功能
+    SetCombinations();
   }
 };
 
@@ -998,6 +1147,10 @@ const AddcustomVariantAttribute = () => {
   selectAttributeValue.value.value = '';
 };
 
+/**
+ * 刪除屬性
+ * @param index 要刪除的索引位置
+ */
 const DeleteAttribute = (index: number) => {
   const target: number = attributes.value.findIndex((attr) => attr.index === index);
   if (target !== -1) {
@@ -1005,5 +1158,19 @@ const DeleteAttribute = (index: number) => {
   }
 };
 
+/**
+ * 刪除排列組合後的屬性
+ * @param index
+ */
+const DeleteCompositeAttributes = (index : number) => {
+  // 先複製一份原始陣列
+  const newArray : CombineResult[][] = [...combinedResults.value];
+
+  // 刪除指定索引的元素
+  newArray.splice(index, 1);
+
+  // 將新陣列賦值回原始的 combinedResults.value
+  combinedResults.value = newArray;
+};
+
 </script>
-../../../ts/Interfaces/DropDown
